@@ -2,6 +2,8 @@ package com.gdm.training.dao;
 
 import com.gdm.training.model.Employee;
 import com.gdm.training.util.ConnectionFactory;
+import org.springframework.stereotype.Component;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -9,15 +11,17 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+
+@Component
 public class EmployeeDao {
 
-    public int register(int id,String name,int salary) throws SQLException {
+    public int register(Employee employee) throws SQLException {
 
         Connection con = ConnectionFactory.getConnection();
         PreparedStatement ps = con.prepareStatement("insert into Employee values(?,?,?)");
-        ps.setInt(1,id);
-        ps.setString(2,name);
-        ps.setInt(3,salary);
+        ps.setInt(1,employee.getId());
+        ps.setString(2, employee.getName());
+        ps.setInt(3,employee.getSalary());
         ps.executeUpdate();
         return 1;
     }

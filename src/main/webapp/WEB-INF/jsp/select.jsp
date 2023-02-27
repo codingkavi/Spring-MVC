@@ -5,7 +5,7 @@
     <title>Get Employee Details</title>
 </head>
 <body>
-<form action="select">
+<form action="all">
 	<input type="submit" value="Get Details">
 </form>
 </body>
