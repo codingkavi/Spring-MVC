@@ -13,14 +13,12 @@
             <th>Employee Name</th>
             <th>Employee Salary</th>
         </tr>
-        <c:forEach items="${empList}" var="e">
-            <tr>
-             <td>${e.id}</td>
-             <td>${e.name}</td>
-             <td>${e.salary}</td>
-            </tr>
-         </c:forEach>
 
+        <tr>
+             <td>${emp.id}</td>
+             <td>${emp.name}</td>
+             <td>${emp.salary}</td>
+        </tr>
     </table>
 </body>
 </html>

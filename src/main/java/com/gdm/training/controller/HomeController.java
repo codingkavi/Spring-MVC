@@ -28,12 +28,12 @@ public class HomeController {
         return "register";
     }
 
-    @RequestMapping(value = "/insert", method = RequestMethod.GET)
+    @RequestMapping(value = "/insert")
     public String insert(@ModelAttribute Employee employee, Model model) throws SQLException {
         System.out.println(employee.getSalary());
         int result = dao.register(employee);
         if (result == 1) {
-            model.addAttribute("messsage", "Registration success");
+            model.addAttribute("message", "Registration success");
             return "result";
         } else {
             model.addAttribute("message", "Unable to Register Employee details");
@@ -58,16 +58,28 @@ public class HomeController {
         }
     }
 
+    @RequestMapping("/selectByIdForm")
+    public String selectById() {
+        return "select";
+    }
+
+    @RequestMapping("/select")
+    public String selectById(@RequestParam int id, Model model) throws SQLException {
+        Employee employee = dao.selectById(id);
+        System.out.println(employee.getSalary());
+        model.addAttribute("emp",employee);
+        return "display";
+    }
 
     @RequestMapping("/selectForm")
     public String selectAll() {
-        return "select";
+        return "selectAll";
     }
 
     @RequestMapping("/all")
     public String selectAllEmployees(Model model) throws SQLException {
         List<Employee> employeeList = dao.getAllEmployees();
         model.addAttribute("empList", employeeList);
-        return "display";
+        return "displayAll";
     }
 }

@@ -2,8 +2,10 @@ package com.gdm.training.dao;
 
 import com.gdm.training.model.Employee;
 import com.gdm.training.util.ConnectionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -15,41 +17,53 @@ import java.util.List;
 @Component
 public class EmployeeDao {
 
-    public int register(Employee employee) throws SQLException {
+    @Autowired
+    private JdbcTemplate template;     //gives prepared statement object
 
-        Connection con = ConnectionFactory.getConnection();
-        PreparedStatement ps = con.prepareStatement("insert into Employee values(?,?,?)");
-        ps.setInt(1,employee.getId());
-        ps.setString(2, employee.getName());
-        ps.setInt(3,employee.getSalary());
-        ps.executeUpdate();
+
+
+    public int register(Employee e) throws SQLException {
+
+        Object[] args = {e.getId(),e.getName(),e.getSalary() };
+        template.update("insert into Employee values(?,?,?)",args);
         return 1;
     }
 
     public List<Employee> getAllEmployees() throws SQLException {
-
-        Connection con = ConnectionFactory.getConnection();
-        PreparedStatement ps = con.prepareStatement("Select * from Employee");
-        ResultSet rs = ps.executeQuery();
         List<Employee> list = new ArrayList<>();
+        list =  template.query("select * from Employee",
+                new RowMapper<Employee>() {
 
-        while(rs.next()) {
-            int id = rs.getInt("id");
-            String name = rs.getString("name");
-            int salary = rs.getInt("salary");
-            Employee employee = new Employee(id,name,salary);
-            list.add(employee);
-
-        }
+                    @Override
+                    public Employee mapRow(ResultSet rs, int rowNum) throws SQLException {
+                        int id = rs.getInt("id");
+                        String name = rs.getString("name");
+                        int salary = rs.getInt("salary");
+                        Employee e = new Employee(id, name, salary);
+                        return e;
+                    }
+                });
         return list;
     }
 
     public int updateSalary(int id,int salary) throws SQLException {
-        Connection con = ConnectionFactory.getConnection();
-        PreparedStatement ps = con.prepareStatement("update Employee set salary = ? where id = ?");
-        ps.setInt(1,salary);
-        ps.setInt(2,id);
-        ps.executeUpdate();
-        return 1;
+
+        Object[] args = {id,salary};
+        int i = template.update("update Employee set salary = ? where id = ?",args);
+        return i;
+    }
+
+    public Employee selectById(int id) throws SQLException {
+
+        Object[] args = {id};
+        Employee employee = template.queryForObject("select * from Employee where id = ?",
+                (rs, rowNum) -> {
+                    int id1 = rs.getInt("id");
+                    String name = rs.getString("name");
+                    int salary = rs.getInt("salary");
+                    Employee e = new Employee(id1, name, salary);
+                    return e;
+                }, args);
+        return employee;
     }
 }

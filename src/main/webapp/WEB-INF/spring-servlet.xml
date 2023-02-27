@@ -8,13 +8,27 @@
        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
     <mvc:annotation-driven/>
 
-    <context:component-scan base-package="com.gdm.training.controller"></context:component-scan>
+    <context:component-scan base-package="com.gdm.training.controller"/>
+
+
+
+    <bean id="e" class="com.gdm.training.dao.EmployeeDao"></bean>
+
+    <bean id="ds" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="com.mysql.cj.jdbc.Driver"/>
+        <property name="url" value="jdbc:Mysql://localhost:3306/mydb"/>
+        <property name="username" value="root"/>
+        <property name="password" value="Anvith@2"/>
+    </bean>
+
+    <bean id="template" class="org.springframework.jdbc.core.JdbcTemplate">
+        <property name="dataSource" ref="ds"/>
+    </bean>
+
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="prefix" value="WEB-INF/jsp/"></property>
         <property name="suffix" value=".jsp"></property>
     </bean>
-
-    <bean id="e" class="com.gdm.training.dao.EmployeeDao"></bean>
 
 </beans>
 
