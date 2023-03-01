@@ -5,9 +5,8 @@
     <title>Get Employee Details</title>
 </head>
 <body>
-<form action="select">
-	<input type="text" name="id" placeholder="Enter employee id">
-	<input type="submit" value="submit">
+<form action="all">
+	<input type="submit" value="Get Details">
 </form>
 </body>
 </html>

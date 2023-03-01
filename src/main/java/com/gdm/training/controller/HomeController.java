@@ -7,9 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import java.sql.SQLException;
 import java.util.List;
 
 @Controller
@@ -29,7 +27,7 @@ public class HomeController {
     }
 
     @RequestMapping(value = "/insert")
-    public String insert(@ModelAttribute Employee employee, Model model) throws SQLException {
+    public String insert(@ModelAttribute Employee employee, Model model) {
         System.out.println(employee.getSalary());
         int result = dao.register(employee);
         if (result == 1) {
@@ -47,7 +45,7 @@ public class HomeController {
     }
 
     @RequestMapping(value = "/update")
-    public String update(@RequestParam int id, @RequestParam int salary, Model model) throws SQLException {
+    public String update(@RequestParam int id, @RequestParam int salary, Model model)  {
         int isUpdated = dao.updateSalary(id, salary);
         if (isUpdated == 1) {
             model.addAttribute("message", "Updated Successfully");
@@ -59,12 +57,12 @@ public class HomeController {
     }
 
     @RequestMapping("/selectByIdForm")
-    public String selectById() {
+    public String selectForm() {
         return "select";
     }
 
     @RequestMapping("/select")
-    public String selectById(@RequestParam int id, Model model) throws SQLException {
+    public String select(@RequestParam int id, Model model)  {
         Employee employee = dao.selectById(id);
         System.out.println(employee.getSalary());
         model.addAttribute("emp",employee);
@@ -77,7 +75,7 @@ public class HomeController {
     }
 
     @RequestMapping("/all")
-    public String selectAllEmployees(Model model) throws SQLException {
+    public String selectAllEmployees(Model model)  {
         List<Employee> employeeList = dao.getAllEmployees();
         model.addAttribute("empList", employeeList);
         return "displayAll";
