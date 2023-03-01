@@ -1,10 +1,6 @@
 package com.gdm.training.servlet;
 
 import com.gdm.training.dao.EmployeeDao;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -13,10 +9,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
 
-@Controller
+
 public class RegisterServlet extends HttpServlet {
 
-    @RequestMapping(value="/test", method= RequestMethod.POST)
     public void service( HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
 
         int id = Integer.parseInt(req.getParameter("empId"));
