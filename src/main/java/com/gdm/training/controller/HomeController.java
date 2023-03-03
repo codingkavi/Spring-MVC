@@ -1,6 +1,7 @@
 package com.gdm.training.controller;
 
 import com.gdm.training.dao.EmployeeDao;
+import com.gdm.training.exception.InvalidIdException;
 import com.gdm.training.model.Employee;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -8,6 +9,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import javax.validation.Valid;
 import java.util.List;
 
 @Controller
@@ -27,8 +30,11 @@ public class HomeController {
     }
 
     @RequestMapping(value = "/insert")
-    public String insert(@ModelAttribute Employee employee, Model model) {
+    public String insert(@ModelAttribute Employee employee, Model model) throws InvalidIdException {
         System.out.println(employee.getSalary());
+        if(employee.getId() < 0) {
+            throw new InvalidIdException("Invalid Id");
+        }
         int result = dao.register(employee);
         if (result == 1) {
             model.addAttribute("message", "Registration success");
@@ -45,7 +51,7 @@ public class HomeController {
     }
 
     @RequestMapping(value = "/update")
-    public String update(@RequestParam int id, @RequestParam int salary, Model model)  {
+    public String update(@RequestParam(required = true) int id, @RequestParam int salary, Model model)  {
         int isUpdated = dao.updateSalary(id, salary);
         if (isUpdated == 1) {
             model.addAttribute("message", "Updated Successfully");
