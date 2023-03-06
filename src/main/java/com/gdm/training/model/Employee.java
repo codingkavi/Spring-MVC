@@ -1,9 +1,18 @@
 package com.gdm.training.model;
 
+import org.hibernate.validator.constraints.NotEmpty;
+import javax.validation.constraints.*;
+
 public class Employee {
 
+    @NotNull(message = "please provide valid id")
+    @Min(100)
     private int id;
+    @NotEmpty(message = "Name is required")
     private String name;
+    @NotNull(message = "please provide salary")
+    @Min(100L)
+    @Max(10000L)
     private int salary;
 
     public Employee() {
@@ -31,6 +40,13 @@ public class Employee {
         this.name = name;
     }
 
+    public int getSalary() {
+        return salary;
+    }
+
+    public void setSalary(int salary) {
+        this.salary = salary;
+    }
     @Override
     public String toString() {
         return "Employee{" +
@@ -38,13 +54,5 @@ public class Employee {
                 ", name='" + name + '\'' +
                 ", salary=" + salary +
                 '}';
-    }
-
-    public int getSalary() {
-        return salary;
-    }
-
-    public void setSalary(int salary) {
-        this.salary = salary;
     }
 }

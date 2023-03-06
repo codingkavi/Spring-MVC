@@ -12,7 +12,7 @@
 
 
 
-    <bean id="e" class="com.gdm.training.dao.EmployeeDao"></bean>
+  <bean id="e" class="com.gdm.training.dao.EmployeeDao"></bean>
 
     <bean id="ds" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName" value="com.mysql.cj.jdbc.Driver"/>
@@ -26,9 +26,18 @@
     </bean>
 
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-        <property name="prefix" value="WEB-INF/jsp/"></property>
+        <property name="prefix" value="WEB-INF/views/"></property>
         <property name="suffix" value=".jsp"></property>
     </bean>
+
+<!--    <bean id="messageSource"-->
+<!--          class="org.springframework.context.support.ReloadableResourceBundleMessageSource">-->
+
+<!--        <property name="basename" value="/WEB-INF/messages" />-->
+
+<!--    </bean>-->
+
+    <bean id="employeeValidator" class="com.gdm.training.validations.EmployeeFormValidator"/>
 
 </beans>
 

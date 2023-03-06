@@ -3,19 +3,16 @@ package com.gdm.training.dao;
 import com.gdm.training.mapper.EmployeeMapper;
 import com.gdm.training.model.Employee;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
-import java.util.ArrayList;
 import java.util.List;
-
 
 @Component
 public class EmployeeDao {
 
     @Autowired
     private JdbcTemplate template;     //gives prepared statement object
-
-
 
     public int register(Employee e){
 
