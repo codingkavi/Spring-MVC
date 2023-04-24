@@ -10,8 +10,6 @@
 
     <context:component-scan base-package="com.gdm.training.controller"/>
 
-
-
   <bean id="e" class="com.gdm.training.dao.EmployeeDao"></bean>
 
     <bean id="ds" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
@@ -36,8 +34,6 @@
 <!--        <property name="basename" value="/WEB-INF/messages" />-->
 
 <!--    </bean>-->
-
-
 
 </beans>
 
