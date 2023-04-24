@@ -16,7 +16,7 @@ public class LoginController {
 
     @RequestMapping("/loginForm")
     public String initView(Model model) {
-        //User user = new User();
+        User user = new User();
         model.addAttribute("user",new User());
         return "login";
     }

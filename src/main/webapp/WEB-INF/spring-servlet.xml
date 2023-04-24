@@ -37,7 +37,7 @@
 
 <!--    </bean>-->
 
-    <bean id="employeeValidator" class="com.gdm.training.validations.EmployeeFormValidator"/>
+
 
 </beans>
 
